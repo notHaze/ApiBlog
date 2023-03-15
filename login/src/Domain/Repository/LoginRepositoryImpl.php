@@ -2,7 +2,7 @@
 namespace Domain\Repository;
 
 use Domain\User\Exception\UserNotFoundException;
-use Domain\User\Login;
+use Domain\User\User;
 use Infrastructure\Database\Database;
 
 class LoginRepositoryImpl implements LoginRepositoryInterface {
@@ -13,7 +13,7 @@ class LoginRepositoryImpl implements LoginRepositoryInterface {
         $this->db = Database::getInstance()->getDb();
     }
 
-    public function login(Login $login) {
+    public function login(User $login) {
         $username = $login->getUsername();
         $password = $login->getPassword();
         $sql = "SELECT count(*) FROM user WHERE username = :username AND password = :password";
@@ -27,7 +27,7 @@ class LoginRepositoryImpl implements LoginRepositoryInterface {
         }
     }
 
-    public function findRole(Login $login) {
+    public function findRole(User $login) {
         $username = $login->getUsername();
         $password = $login->getPassword();
         $sql = "SELECT role,id FROM user WHERE username = :username AND password = :password";

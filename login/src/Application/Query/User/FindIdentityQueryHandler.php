@@ -6,7 +6,7 @@ use Application\Query\QueryHandlerInterface;
 use Application\Query\QueryInterface;
 use Domain\Repository\LoginRepositoryInterface;
 use Exception;
-use Domain\User\Login;
+use Domain\User\User;
 
 class FindIdentityQUeryHandler implements QueryHandlerInterface
 {
@@ -22,7 +22,7 @@ class FindIdentityQUeryHandler implements QueryHandlerInterface
             throw new Exception("FIndIdentityQueryHandler can only handle FindIdentityQuery");
         }
 
-        $login = new Login($query->getUsername(), $query->getPassword());
+        $login = new User($query->getUsername(), $query->getPassword(), null, null);
         return $this->loginRepository->findRole($login);
     }
 }

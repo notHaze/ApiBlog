@@ -6,7 +6,7 @@ use Application\Command\CommandHandlerInterface;
 use Application\Command\CommandInterface;
 use Domain\Repository\LoginRepositoryInterface;
 use Exception;
-use Domain\User\Login;
+use Domain\User\User;
 
 class LoginCommandHandler implements CommandHandlerInterface
 {
@@ -22,7 +22,7 @@ class LoginCommandHandler implements CommandHandlerInterface
             throw new Exception("CreatePostHandler can only handle CreatePostCommand");
         }
 
-        $login = new Login($command->getUsername(), $command->getPassword());
+        $login = new User($command->getUsername(), $command->getPassword(), null, null);
         $this->loginRepository->login($login);
     }
 }

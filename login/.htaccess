@@ -1,2 +1,3 @@
-RewriteEngine on  
-RewriteRule ^$ ./src/index.php [L]
+RewriteEngine on
+RewriteRule ^$ public/ [L]
+RewriteRule (.*) public/$1 [L]

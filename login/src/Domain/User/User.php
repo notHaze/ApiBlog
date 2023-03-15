@@ -1,13 +1,17 @@
 <?php
 namespace Domain\User;
 
-class login {
+class User {
     private $username;
     private $password;
+    private $role;
+    private $id;
 
-    public function __construct($username, $password) {
+    public function __construct($username, $password, $role, $id) {
         $this->username = $username;
         $this->password = $password;
+        $this->role = $role;
+        $this->id = $id;
     }
 
     public function getUsername() {
@@ -16,6 +20,14 @@ class login {
 
     public function getPassword() {
         return $this->password;
+    }
+
+    public function getRole() {
+        return $this->role;
+    }
+
+    public function getId() {
+        return $this->id;
     }
 }
 
