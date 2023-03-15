@@ -1,12 +1,12 @@
 <?php
 
-namespace Application\Command\Login;
+namespace Application\Command\User;
 
 use Application\Command\CommandHandlerInterface;
 use Application\Command\CommandInterface;
 use Domain\Repository\LoginRepositoryInterface;
 use Exception;
-use Domain\Login\Login;
+use Domain\User\Login;
 
 class LoginCommandHandler implements CommandHandlerInterface
 {

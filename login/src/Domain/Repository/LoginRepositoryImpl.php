@@ -1,8 +1,8 @@
 <?php
 namespace Domain\Repository;
 
-use Domain\Login\Exception\LoginNotFoundException;
-use Domain\Login\Login;
+use Domain\User\Exception\UserNotFoundException;
+use Domain\User\Login;
 use Infrastructure\Database\Database;
 
 class LoginRepositoryImpl implements LoginRepositoryInterface {
@@ -23,7 +23,7 @@ class LoginRepositoryImpl implements LoginRepositoryInterface {
         $stmt->execute();
         $result = $stmt->fetch();
         if ($result[0] == 0) {
-            throw new LoginNotFoundException();
+            throw new UserNotFoundException();
         }
     }
 

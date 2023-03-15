@@ -1,12 +1,12 @@
 <?php
 
-namespace Application\Query\Login;
+namespace Application\Query\User;
 
 use Application\Query\QueryHandlerInterface;
 use Application\Query\QueryInterface;
 use Domain\Repository\LoginRepositoryInterface;
 use Exception;
-use Domain\Login\Login;
+use Domain\User\Login;
 
 class FindIdentityQUeryHandler implements QueryHandlerInterface
 {

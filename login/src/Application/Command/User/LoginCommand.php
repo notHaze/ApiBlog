@@ -1,10 +1,10 @@
 <?php
-namespace Application\Query\Login;
 
-use Application\Query\QueryInterface;
+namespace Application\Command\User;
 
+use Application\Command\CommandInterface;
 
-class FindIdentityQuery implements QueryInterface
+class LoginCommand implements CommandInterface
 {
     private $username;
     private $password;

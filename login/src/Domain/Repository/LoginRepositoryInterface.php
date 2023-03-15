@@ -1,7 +1,7 @@
 <?php
 namespace Domain\Repository;
 
-use Domain\Login\Login;
+use Domain\User\Login;
 
 interface LoginRepositoryInterface {
     public function login(Login $login);

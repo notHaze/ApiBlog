@@ -1,11 +1,11 @@
 <?php
 
 namespace Controllers;
-use Application\Command\Login\LoginCommand;
-use Application\Command\Login\LoginCommandHandler;
-use Application\Query\Login\FindIdentityQuery;
-use Application\Query\Login\FindIdentityQueryHandler;
-use Domain\Login\LoginRepositoryImpl;
+use Application\Command\User\LoginCommand;
+use Application\Command\User\LoginCommandHandler;
+use Application\Query\User\FindIdentityQuery;
+use Application\Query\User\FindIdentityQueryHandler;
+use Domain\User\LoginRepositoryImpl;
 use Database\Database;
 use Exception;
 use Domain\tokenJWT\tokenJWTImpl;
@@ -26,7 +26,7 @@ class LoginController {
 
         $loginCommand = new LoginCommand($username, $password);
         SynchronousCommandBus::execute($loginCommand);
-        //Si l'execution arrive ici c'est que l'authentification a reussi car aucune Exception LoginNotFoundException n'a ete levee
+        //Si l'execution arrive ici c'est que l'authentification a reussi car aucune Exception UserNotFoundException n'a ete levee
         //On peut donc recuperer le role de l'utilisateur
         $findIdentityQuery = new FindIdentityQuery($username, $password);
         $tabIdentity = SynchronousQueryBus::ask($findIdentityQuery);

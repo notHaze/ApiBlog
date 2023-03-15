@@ -1,5 +1,5 @@
 <?php
-namespace Domain\Login;
+namespace Domain\User;
 
 class login {
     private $username;

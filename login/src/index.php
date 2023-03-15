@@ -7,11 +7,11 @@ use Slim\Factory\AppFactory;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Exception\NotFoundException;
-use Application\Command\Login\LoginCommandHandler;
+use Application\Command\User\LoginCommandHandler;
 use Infrastructure\Database\Database;
 use Infrastructure\SynchronousCommandBus;
 use Infrastructure\SynchronousQueryBus;
-use Application\Query\Login\FindIdentityQueryHandler;
+use Application\Query\User\FindIdentityQueryHandler;
 use Domain\Repository\LoginRepositoryImpl;
 
 $app = AppFactory::create();
@@ -22,8 +22,8 @@ $app->setBasePath("/api/login/");
 
 $loginRepository = new LoginRepositoryImpl();
 
-SynchronousCommandBus::register(Application\Command\Login\LoginCommand::class, new LoginCommandHandler($loginRepository));
-SynchronousQueryBus::register(Application\Query\Login\FindIdentityQuery::class, new FindIdentityQueryHandler($loginRepository));
+SynchronousCommandBus::register(Application\Command\User\LoginCommand::class, new LoginCommandHandler($loginRepository));
+SynchronousQueryBus::register(Application\Query\User\FindIdentityQuery::class, new FindIdentityQueryHandler($loginRepository));
 
 
 
