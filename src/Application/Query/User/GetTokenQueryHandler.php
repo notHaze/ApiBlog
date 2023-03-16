@@ -4,6 +4,7 @@ namespace Application\Query\User;
 
 use Application\Query\QueryHandlerInterface;
 use Application\Query\QueryInterface;
+use Domain\tokenJWT\Exception\TokenNotFoundException;
 use Exception;
 use Domain\User\User;
 use Domain\tokenJWT\tokenJWTImpl;
@@ -22,6 +23,9 @@ class GetTokenQueryHandler implements QueryHandlerInterface
 
         $jwt = new tokenJWTImpl();
         $bearer = $jwt->getBearerToken();
+        if ($bearer == null) {
+            throw new TokenNotFoundException("Token not found in bearer");
+        }
         return $bearer;
     }
 }
