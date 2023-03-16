@@ -12,6 +12,7 @@ use Application\Query\User\FindIdentityQueryHandler;
 use Domain\Repository\LoginRepositoryImpl;
 use Application\Command\User\ValidateTokenCommandHandler;
 use Application\Middleware\ValidateTokenMiddleware;
+use Application\Middleware\VerifyRoleMiddleware;
 use Application\Query\User\GetRoleQueryHandler;
 use Application\Query\User\GetTokenQueryHandler;
 
@@ -22,7 +23,7 @@ use Psr\Http\Message\ResponseInterface;
 
 $app = AppFactory::create();
 
-$app->addErrorMiddleware(true, true, true);
+
 
 
 $app->setBasePath("/api/ApiBlog");
@@ -41,12 +42,14 @@ SynchronousQueryBus::register(Application\Query\User\GetTokenQuery::class, new G
 $app->post('/login', [LoginController::class, 'login']);
 
 $app->group('/article', function ($app) {
-    $app->get('/{id}', [ArticleController::class, 'get']);
-    $app->post('', [ArticleController::class, 'create']);
-    $app->patch('/{id}', [ArticleController::class, 'update']);
-    $app->delete('/{id}', [ArticleController::class, 'delete']);
-    $app->get('', [ArticleController::class, 'getAll']);
+    $app->get('/own',new VerifyRoleMiddleware($app->getResponseFactory(), "publisher"), [ArticleController::class, 'get']); //Get all articles of the user publisher
+    $app->post('', new VerifyRoleMiddleware($app->getResponseFactory(), "publisher"), [ArticleController::class, 'create']); //Publier un article
+    $app->patch('/{id}',new VerifyRoleMiddleware($app->getResponseFactory(), "publisher"), [ArticleController::class, 'update']); //Modifier un article ou liker/disliker
+    $app->delete('/{id}',new VerifyRoleMiddleware($app->getResponseFactory(), "moderator", "publisher"), [ArticleController::class, 'delete']); //Supprimer un article
+    $app->get('', [ArticleController::class, 'getAll']); //Get all articles for moderator and publisher and reader
 })->addMiddleware(new ValidateTokenMiddleware($app->getResponseFactory()));
+
+$app->addErrorMiddleware(true, true, true);
 
 try {
     $app->run();     
