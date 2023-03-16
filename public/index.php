@@ -3,6 +3,7 @@
 require __DIR__ . '/../vendor/autoload.php';
 
 use Controllers\LoginController;
+use Controllers\ArticleController;
 use Slim\Factory\AppFactory;
 use Application\Command\User\LoginCommandHandler;
 use Infrastructure\SynchronousCommandBus;
@@ -23,7 +24,7 @@ $app = AppFactory::create();
 $app->addErrorMiddleware(true, true, true);
 
 
-$app->setBasePath("/api/apiBlog/login");
+$app->setBasePath("/api/ApiBlog");
 
 $loginRepository = new LoginRepositoryImpl();
 
