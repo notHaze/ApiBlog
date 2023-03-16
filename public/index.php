@@ -11,6 +11,7 @@ use Infrastructure\SynchronousQueryBus;
 use Application\Query\User\FindIdentityQueryHandler;
 use Domain\Repository\LoginRepositoryImpl;
 use Application\Command\User\ValidateTokenCommandHandler;
+use Application\Middleware\ValidateTokenMiddleware;
 use Application\Query\User\GetRoleQueryHandler;
 use Application\Query\User\GetTokenQueryHandler;
 
@@ -38,7 +39,14 @@ SynchronousQueryBus::register(Application\Query\User\GetTokenQuery::class, new G
 
 
 $app->post('/login', [LoginController::class, 'login']);
-$app->get('/article', [ArticleController::class, 'getAll']);
+
+$app->group('/article', function ($app) {
+    $app->get('/{id}', [ArticleController::class, 'get']);
+    $app->post('', [ArticleController::class, 'create']);
+    $app->patch('/{id}', [ArticleController::class, 'update']);
+    $app->delete('/{id}', [ArticleController::class, 'delete']);
+    $app->get('', [ArticleController::class, 'getAll']);
+})->addMiddleware(new ValidateTokenMiddleware($app->getResponseFactory()));
 
 try {
     $app->run();     
