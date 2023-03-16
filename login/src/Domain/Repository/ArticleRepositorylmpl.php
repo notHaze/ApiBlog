@@ -16,11 +16,11 @@ class  ArticleRepositorylmpl implements ArticleRepositoryInterface {
     {
         $article->setAuthor($user);
         $user->addArticle($article);
-        $SQL = "INSERT INTO Article (contenu, datePubli, idUsers) VALUES (:contenu, :datePubli, :idUsers)";
+        $SQL = "INSERT INTO Article (contenu, datePubli, idAuteur) VALUES (:contenu, :datePubli, :idAuteur)";
         $stmt = $this->db->prepare($SQL);
         $stmt->bindParam(':contenu', $article->getContenu());
         $stmt->bindParam(':datePubli', $article->getDatePubli());
-        $stmt->bindParam(':idUsers', $article->getAuthor()->getId());
+        $stmt->bindParam(':idAuteur', $article->getAuthor()->getId());
         $stmt->execute();
     }
 
