@@ -40,6 +40,7 @@ class tokenJWTImpl implements tokenJWT {
         return $jwt;
     }
 
+
     public function validateToken($jwt) {
         $token = JWT::decode($jwt, new Key(tokenJWTImpl::$SECRET_KEY, tokenJWTImpl::ALGORITHM));
         $now = new DateTimeImmutable();
@@ -81,6 +82,11 @@ class tokenJWTImpl implements tokenJWT {
             }
         }
         return null;
+    }
+
+    public function getPayload($jwt) {
+        $token = JWT::decode($jwt, new Key(tokenJWTImpl::$SECRET_KEY, tokenJWTImpl::ALGORITHM));
+        return $token;
     }
 
 }

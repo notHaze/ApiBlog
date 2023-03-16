@@ -13,5 +13,7 @@ interface tokenJWT {
     
     public function getBearerToken();
 
+    public function getPayload($jwt);
+
 }
 ?>
