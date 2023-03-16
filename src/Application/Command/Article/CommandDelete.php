@@ -1,8 +1,7 @@
 <?php
-
 namespace Application\Command\Article;
 use Application\Command\CommandInterface;
-class CommandModify implements CommandInterface{
+class CommandDelete implements CommandInterface{
     private $idUser;
     private $idArticle;
     public function __construct(int $idUser, int $idArticle)
