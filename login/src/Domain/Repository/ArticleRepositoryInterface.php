@@ -3,6 +3,7 @@
 namespace Domain\Repository;
 
 use Domain\Article\Article;
+use Domain\User\User;
 
 interface ArticleRepositoryInterface {
     public function save(Article $article, User $user);
