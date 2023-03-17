@@ -2,6 +2,8 @@
 
 namespace Controllers;
 
+use Application\Query\Article\getOwnQuery;
+use Infrastructure\SynchronousQueryBus;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\RequestInterface;
 use Domain\Article\Article;
@@ -21,11 +23,16 @@ class ArticleController
 
     public function get(RequestInterface $request, ResponseInterface $response, array $args)
     {
-        $article = new Article(1, "2020-01-01", "body", "writer");
+        //On récupère l'id de l'utilisateur
+        $id = $request->getAttribute("idUser");
 
-        $jsonOutput = json_encode(array("status" => "success", "article" => $article));
+        //On récupère les articles de l'utilisateur
+        $articles = SynchronousQueryBus::ask(new getOwnQuery($id));
+
+        $jsonOutput = json_encode(array("status" => "success", "articles" => $articles));
         $response->getBody()->write($jsonOutput);
 
         return $response->withAddedHeader("Content-Type", "application/json")->withStatus(200);
+
     }
 }

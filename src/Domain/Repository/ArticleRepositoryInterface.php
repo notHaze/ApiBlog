@@ -8,7 +8,7 @@ use Domain\User\User;
 interface ArticleRepositoryInterface {
     public function save(Article $article);
 
-    public function find(Article $article);
+    public function findOwn($id);
 
     public function findAll();
 

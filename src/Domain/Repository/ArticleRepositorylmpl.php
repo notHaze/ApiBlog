@@ -32,13 +32,11 @@ class  ArticleRepositorylmpl implements ArticleRepositoryInterface {
         return $id;
     }
 
-    public function find(Article $article)
+    public function findOwn($id)
     {
-        $SQL = "SELECT * FROM  Article WHERE idArticle = :idArticle";
+        $SQL = "SELECT * FROM  Article WHERE idAuteur = :idAuteur";
         $stmt = $this->db->prepare($SQL);
-        $stmt->bindParam(':contenu', $article->getContenu());
-        $stmt->bindParam(':datePubli', $article->getDatePubli());
-        $stmt->bindParam(':idUsers', $article->getAuthor()->getId());
+        $stmt->bindParam(':idAuteur', $id);
         $stmt->execute();
         return $stmt->fetchAll();
     }
