@@ -38,7 +38,6 @@ class ValidateTokenMiddleware implements MiddlewareInterface
         try {
             $token = SynchronousQueryBus::ask(new GetTokenQuery());
             SynchronousCommandBus::execute(new ValidateTokenCommand($token));
-            echo "Verifed token";
         } catch (TokenNotFoundException $e) {
             $response = $this->responseFactory->createResponse();
             $response->getBody()->write(json_encode(["status" => "failed", "message" => $e->getMessage()]));
@@ -48,9 +47,9 @@ class ValidateTokenMiddleware implements MiddlewareInterface
             $response->getBody()->write(json_encode(["status" => "failed", "message" => $e->getMessage()]));
             return $response->withAddedHeader("Content-Type", "application/json")->withStatus(401);
         }
+        
         $payload  = SynchronousQueryBus::ask(new GetRoleQuery($token));
-
-        $request = $request->withAttribute("idUser", $payload->idUser)->withAttribute("role", $payload->role);
+        $request = $request->withAttribute("idUser", $payload->id)->withAttribute("role", $payload->role);
         // Keep processing middleware queue as normal
         return $handler->handle($request);
     }

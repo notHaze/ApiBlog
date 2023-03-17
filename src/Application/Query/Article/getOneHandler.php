@@ -6,7 +6,7 @@ use Application\Query\QueryHandlerInterface;
 use Application\Query\QueryInterface;
 use Domain\Repository\ArticleRepositoryInterface;
 
-class CountNbOfLikeQueryHandler implements QueryHandlerInterface
+class getOneHandler implements QueryHandlerInterface
 {
     private $articleRepository;
 
@@ -15,13 +15,11 @@ class CountNbOfLikeQueryHandler implements QueryHandlerInterface
         $this->articleRepository = $articleRepository;
     }
 
-
     public function ask(QueryInterface $query)
     {
-        if (!$query instanceof CountNbOfLikeQuery) {
-            throw new \InvalidArgumentException('CountNbOfLikeQueryHandler can only handle CountNbOfLikeQuery');
+        if (!$query instanceof getOneQuery) {
+            throw new \InvalidArgumentException('getOneHandler can only handle getOneQuery');
         }
-        $article = $query->getArticle();
-        return $this->articleRepository->getLikes($article->getId());
+        return $this->articleRepository->getOne($query->getId());
     }
 }

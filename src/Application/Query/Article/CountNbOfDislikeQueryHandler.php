@@ -21,6 +21,6 @@ class CountNbOfDislikeQueryHandler implements QueryHandlerInterface
             throw new \InvalidArgumentException('CountNbOfDislikeQueryHandler can only handle CountNbOfDislikeQuery');
         }
         $article = $query->getArticle();
-        return $this->articleRepository->getDislikes($article);
+        return $this->articleRepository->getDislikes($article->getId());
     }
 }

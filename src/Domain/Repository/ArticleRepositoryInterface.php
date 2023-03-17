@@ -18,9 +18,16 @@ interface ArticleRepositoryInterface {
 
     public function dislike(Article $article, User $user);
 
-    public function getLikes(Article $article);
+    public function getLikes($id);
 
-    public function getDislikes(Article $article);
+    public function getDislikes($id);
+
+    public function getOne($id);
+
+    public function getPeopleLike($id);
+
+    public function getPeopleDislike($id);
+
 
 
 }

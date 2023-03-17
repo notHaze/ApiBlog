@@ -11,18 +11,17 @@ class tokenJWTImpl implements tokenJWT {
 
     static private $SECRET_KEY;
     private const SERVER_NAME = "server.article.login";
-    private const EXPIRATION_TIME = "10"; //en minutes
+    private const EXPIRATION_TIME = "30"; //en minutes
     private const ALGORITHM = "HS512";
 
     function __construct() {
         tokenJWTImpl::$SECRET_KEY = "alorsvoilalesecret"; /*getenv("jwt_secret_key");*/
     }
 
-    public function createToken($username, $password, $role, $id) {
+    public function createToken($username, $password, $id, $role) {
 
         $issuedAt   = new DateTimeImmutable();
         $expire     = $issuedAt->modify("+".tokenJWTImpl::EXPIRATION_TIME."minutes")->getTimestamp();
-        
         $data = [
             'iat'  => $issuedAt->getTimestamp(),         // Issued at:  : heure à laquelle le jeton a été généré
             'iss'  => tokenJWTImpl::SERVER_NAME,             // Émetteur (nous)

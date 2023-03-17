@@ -33,7 +33,7 @@ class LoginController {
 
         //On peut maintenant construire le token jwt
         $jwtFactory = new tokenJWTImpl();
-        $token = $jwtFactory->createToken($username, $password, $tabIdentity['id'], $tabIdentity['role']);
+        $token = $jwtFactory->createToken($username, $password, $tabIdentity['idUser'], $tabIdentity['role']);
 
         $jsonOutput = json_encode(array("status" => "success", "token" => $token));
         $response->getBody()->write($jsonOutput);

@@ -3,7 +3,9 @@
 namespace Application\Command\Article;
 use Application\Command\CommandInterface;
 use Application\Command\CommandHandlerInterface;
+use Domain\Article\Article;
 use Domain\Repository\ArticleRepositoryInterface;
+use Domain\User\User;
 use Exception;
 class commandLikeHandler implements  CommandHandlerInterface
 {
@@ -16,7 +18,9 @@ class commandLikeHandler implements  CommandHandlerInterface
         if (!$command instanceof commandLike) {
             throw new Exception("commandHandlerLike can only handle commandLike");
         }
-        $this->articleRepository->like($command->getIdUser(), $command->getIdArticle());
+        $article = new Article($command->getIdArticle(), null, null, null);
+        $user = new User(null, null, null, $command->getIdUser());
+        $this->articleRepository->like($article, $user);
     }
 }
 ?>

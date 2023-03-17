@@ -36,6 +36,15 @@ class Article
     {
         return $this->body;
     }
+
+    public function __toString()
+    {
+        return json_encode(array("id" => $this->id, "date" => $this->date, "body" => $this->body, "writer" => $this->writer));
+    }
+
+    public function setId($id) {
+        $this->id = $id;
+    }
 }
 
 

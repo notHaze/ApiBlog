@@ -7,6 +7,8 @@ interface LoginRepositoryInterface {
     public function login(User $login);
 
     public function findRole(User $login);
+
+    public function getUsername(User $login);
 }
 
 

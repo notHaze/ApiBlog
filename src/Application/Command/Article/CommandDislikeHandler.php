@@ -2,7 +2,9 @@
 namespace Application\Command\Article;
 use Application\Command\CommandInterface;
 use Application\Command\CommandHandlerInterface;
+use Domain\Article\Article;
 use Domain\Repository\ArticleRepositoryInterface;
+use Domain\User\User;
 use Exception;
 class CommandDislikeHandler implements CommandHandlerInterface
 {
@@ -16,7 +18,9 @@ class CommandDislikeHandler implements CommandHandlerInterface
         if (!$command instanceof CommandDislike) {
             throw new Exception("CommandDislikeHandler can only handle CommandDislike");
         }
-        $this->articleRepository->dislike($command->getIdUser(), $command->getIdArticle());
+        $article = new Article($command->getIdArticle(), null, null, null);
+        $user = new User(null, null, null, $command->getIdUser());
+        $this->articleRepository->dislike($article, $user);
     }
 }
 ?>

@@ -23,6 +23,6 @@ class PublishQueryHandler implements QueryHandlerInterface
             throw new \InvalidArgumentException('PublishQueryHandler can only handle PublishQuery');
         }
         $article = $query->getArticle();
-        $this->articleRepository->save($article);
+        return $this->articleRepository->save($article);
     }
 }
