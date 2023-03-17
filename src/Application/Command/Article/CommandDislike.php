@@ -4,12 +4,11 @@ use Application\Command\CommandInterface;
 class CommandDislike implements CommandInterface{
     private $idUser;
     private $idArticle;
-    private $dislike;
-    public function __construct(int $idUser, int $idArticle, int $dislike)
+
+    public function __construct(int $idUser, int $idArticle)
     {
         $this->idUser = $idUser;
         $this->idArticle = $idArticle;
-        $this->dislike = $dislike;
     }
     public function getIdUser()
     {
@@ -18,10 +17,6 @@ class CommandDislike implements CommandInterface{
     public function getIdArticle()
     {
         return $this->idArticle;
-    }
-    public function getDislike()
-    {
-        return $this->dislike;
     }
 
 }

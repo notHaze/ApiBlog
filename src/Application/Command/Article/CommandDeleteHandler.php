@@ -3,12 +3,16 @@
 namespace Application\Command\Article;
 use Application\Command\CommandHandlerInterface;
 use Application\Command\CommandInterface;
+use Domain\Repository\ArticleRepositoryInterface;
 use Exception;
 
-class commandHandlerDelete implements CommandHandlerInterface
+class commandDeleteHandler implements CommandHandlerInterface
 {
-    public function __construct()
+    private ArticleRepositoryInterface $articleRepository;
+
+    public function __construct(ArticleRepositoryInterface $articleRepository)
     {
+        $this->articleRepository = $articleRepository;
     }
 
     public function handle(CommandInterface $command)
@@ -16,6 +20,7 @@ class commandHandlerDelete implements CommandHandlerInterface
         if (!$command instanceof commandDelete) {
             throw new Exception("commandHandlerDelete can only handle commandDelete");
         }
+        $this->articleRepository->delete($command->getIdArticle());
 
     }
 }

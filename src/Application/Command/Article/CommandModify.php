@@ -5,10 +5,15 @@ use Application\Command\CommandInterface;
 class CommandModify implements CommandInterface{
     private $idUser;
     private $idArticle;
-    public function __construct(int $idUser, int $idArticle)
+    private string $body;
+    private $date;
+
+    public function __construct(int $idUser, int $idArticle, String $body, $date)
     {
         $this->idUser = $idUser;
         $this->idArticle = $idArticle;
+        $this->body = $body;
+        $this->date = $date;
     }
     public function getIdUser()
     {
@@ -17,6 +22,22 @@ class CommandModify implements CommandInterface{
     public function getIdArticle()
     {
         return $this->idArticle;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBody(): string
+    {
+        return $this->body;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDate()
+    {
+        return $this->date;
     }
 }
 ?>

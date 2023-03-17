@@ -6,7 +6,7 @@ use Domain\Article\Article;
 use Domain\User\User;
 
 interface ArticleRepositoryInterface {
-    public function save(Article $article, User $user);
+    public function save(Article $article);
 
     public function find(Article $article);
 
@@ -17,6 +17,10 @@ interface ArticleRepositoryInterface {
     public function like(Article $article, User $user);
 
     public function dislike(Article $article, User $user);
+
+    public function getLikes(Article $article);
+
+    public function getDislikes(Article $article);
 
 
 }

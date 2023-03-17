@@ -5,11 +5,11 @@ class CommandLike implements   CommandInterface{
     private $idUser;
     private $idArticle;
     private $like;
-    public function __construct(int $idUser, int $idArticle, int $like)
+    public function __construct(int $idUser, int $idArticle)
     {
         $this->idUser = $idUser;
         $this->idArticle = $idArticle;
-        $this->like = $like;
+
     }
     public function getIdUser()
     {
@@ -18,10 +18,6 @@ class CommandLike implements   CommandInterface{
     public function getIdArticle()
     {
         return $this->idArticle;
-    }
-    public function getLike()
-    {
-        return $this->like;
     }
 }
 ?>
