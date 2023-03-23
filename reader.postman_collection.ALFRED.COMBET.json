@@ -1,0 +1,289 @@
+{
+	"info": {
+		"_postman_id": "e1b03fd4-25fa-4f4c-b733-4420d92c1774",
+		"name": "reader",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"autre\",\r\n    \"password\": \"autre\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://34.147.14.131/apiBlog/login",
+					"protocol": "http",
+					"host": [
+						"34",
+						"147",
+						"14",
+						"131"
+					],
+					"path": [
+						"apiBlog",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAll",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2Nzk0OTI3NzksImlzcyI6InNlcnZlci5hcnRpY2xlLmxvZ2luIiwibmJmIjoxNjc5NDkyNzc5LCJleHAiOjE2Nzk0OTQ1NzksInJvbGUiOm51bGwsImlkIjozfQ.jkdx9BvtXwSnM4nWCaEqGoJ992RoINY12NoxZEMwQM1o9Ugbdlm-5Jxn0NjqbumWqK7l0PutCykGc0zJFeuBDg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://34.147.14.131/apiBlog/article",
+					"protocol": "http",
+					"host": [
+						"34",
+						"147",
+						"14",
+						"131"
+					],
+					"path": [
+						"apiBlog",
+						"article"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getOwn",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2Nzk0OTI3NzksImlzcyI6InNlcnZlci5hcnRpY2xlLmxvZ2luIiwibmJmIjoxNjc5NDkyNzc5LCJleHAiOjE2Nzk0OTQ1NzksInJvbGUiOm51bGwsImlkIjozfQ.jkdx9BvtXwSnM4nWCaEqGoJ992RoINY12NoxZEMwQM1o9Ugbdlm-5Jxn0NjqbumWqK7l0PutCykGc0zJFeuBDg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://34.147.14.131/apiBlog/article/own",
+					"protocol": "http",
+					"host": [
+						"34",
+						"147",
+						"14",
+						"131"
+					],
+					"path": [
+						"apiBlog",
+						"article",
+						"own"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateArticle",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2Nzk0OTI3NzksImlzcyI6InNlcnZlci5hcnRpY2xlLmxvZ2luIiwibmJmIjoxNjc5NDkyNzc5LCJleHAiOjE2Nzk0OTQ1NzksInJvbGUiOm51bGwsImlkIjozfQ.jkdx9BvtXwSnM4nWCaEqGoJ992RoINY12NoxZEMwQM1o9Ugbdlm-5Jxn0NjqbumWqK7l0PutCykGc0zJFeuBDg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"body\": \"Hello\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://34.147.14.131/apiBlog/article",
+					"protocol": "http",
+					"host": [
+						"34",
+						"147",
+						"14",
+						"131"
+					],
+					"path": [
+						"apiBlog",
+						"article"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteArticle",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2Nzk0OTI3NzksImlzcyI6InNlcnZlci5hcnRpY2xlLmxvZ2luIiwibmJmIjoxNjc5NDkyNzc5LCJleHAiOjE2Nzk0OTQ1NzksInJvbGUiOm51bGwsImlkIjozfQ.jkdx9BvtXwSnM4nWCaEqGoJ992RoINY12NoxZEMwQM1o9Ugbdlm-5Jxn0NjqbumWqK7l0PutCykGc0zJFeuBDg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://34.147.14.131/apiBlog/article/1",
+					"protocol": "http",
+					"host": [
+						"34",
+						"147",
+						"14",
+						"131"
+					],
+					"path": [
+						"apiBlog",
+						"article",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateArticle",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2Nzk0OTI3NzksImlzcyI6InNlcnZlci5hcnRpY2xlLmxvZ2luIiwibmJmIjoxNjc5NDkyNzc5LCJleHAiOjE2Nzk0OTQ1NzksInJvbGUiOm51bGwsImlkIjozfQ.jkdx9BvtXwSnM4nWCaEqGoJ992RoINY12NoxZEMwQM1o9Ugbdlm-5Jxn0NjqbumWqK7l0PutCykGc0zJFeuBDg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"body\": \"merci\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://34.147.14.131/apiBlog/article/1",
+					"protocol": "http",
+					"host": [
+						"34",
+						"147",
+						"14",
+						"131"
+					],
+					"path": [
+						"apiBlog",
+						"article",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LikeArticle",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2Nzk0OTI3NzksImlzcyI6InNlcnZlci5hcnRpY2xlLmxvZ2luIiwibmJmIjoxNjc5NDkyNzc5LCJleHAiOjE2Nzk0OTQ1NzksInJvbGUiOm51bGwsImlkIjozfQ.jkdx9BvtXwSnM4nWCaEqGoJ992RoINY12NoxZEMwQM1o9Ugbdlm-5Jxn0NjqbumWqK7l0PutCykGc0zJFeuBDg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "http://34.147.14.131/apiBlog/article/like/1",
+					"protocol": "http",
+					"host": [
+						"34",
+						"147",
+						"14",
+						"131"
+					],
+					"path": [
+						"apiBlog",
+						"article",
+						"like",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DislikeArticle",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2Nzk0OTI3NzksImlzcyI6InNlcnZlci5hcnRpY2xlLmxvZ2luIiwibmJmIjoxNjc5NDkyNzc5LCJleHAiOjE2Nzk0OTQ1NzksInJvbGUiOm51bGwsImlkIjozfQ.jkdx9BvtXwSnM4nWCaEqGoJ992RoINY12NoxZEMwQM1o9Ugbdlm-5Jxn0NjqbumWqK7l0PutCykGc0zJFeuBDg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "http://34.147.14.131/apiBlog/article/dislike/1",
+					"protocol": "http",
+					"host": [
+						"34",
+						"147",
+						"14",
+						"131"
+					],
+					"path": [
+						"apiBlog",
+						"article",
+						"dislike",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

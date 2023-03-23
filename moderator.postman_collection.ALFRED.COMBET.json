@@ -1,0 +1,289 @@
+{
+	"info": {
+		"_postman_id": "f470ab6e-0b12-4c97-844d-5f00d96547cb",
+		"name": "moderator",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"Florent\",\r\n    \"password\": \"Florent\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://34.147.14.131/apiBlog/login",
+					"protocol": "http",
+					"host": [
+						"34",
+						"147",
+						"14",
+						"131"
+					],
+					"path": [
+						"apiBlog",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAll",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2Nzk1MTI5MjUsImlzcyI6InNlcnZlci5hcnRpY2xlLmxvZ2luIiwibmJmIjoxNjc5NTEyOTI1LCJleHAiOjE2Nzk1MTQ3MjUsInJvbGUiOiJtb2RlcmF0b3IiLCJpZCI6MX0.hhXo7UW4EEGnRLNFFnuzHnfTvkJK1YO0sMn4P4b3hf3P_VL2tOWCjagJqYTvq1s4eDMhqNZUlIdZ8r1nKDo2MA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://34.147.14.131/apiBlog/article",
+					"protocol": "http",
+					"host": [
+						"34",
+						"147",
+						"14",
+						"131"
+					],
+					"path": [
+						"apiBlog",
+						"article"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getOwn",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2Nzk1MTI5MjUsImlzcyI6InNlcnZlci5hcnRpY2xlLmxvZ2luIiwibmJmIjoxNjc5NTEyOTI1LCJleHAiOjE2Nzk1MTQ3MjUsInJvbGUiOiJtb2RlcmF0b3IiLCJpZCI6MX0.hhXo7UW4EEGnRLNFFnuzHnfTvkJK1YO0sMn4P4b3hf3P_VL2tOWCjagJqYTvq1s4eDMhqNZUlIdZ8r1nKDo2MA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://34.147.14.131/apiBlog/article/own",
+					"protocol": "http",
+					"host": [
+						"34",
+						"147",
+						"14",
+						"131"
+					],
+					"path": [
+						"apiBlog",
+						"article",
+						"own"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateArticle",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2Nzk1MTI5MjUsImlzcyI6InNlcnZlci5hcnRpY2xlLmxvZ2luIiwibmJmIjoxNjc5NTEyOTI1LCJleHAiOjE2Nzk1MTQ3MjUsInJvbGUiOiJtb2RlcmF0b3IiLCJpZCI6MX0.hhXo7UW4EEGnRLNFFnuzHnfTvkJK1YO0sMn4P4b3hf3P_VL2tOWCjagJqYTvq1s4eDMhqNZUlIdZ8r1nKDo2MA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"body\" : \"L'homme nait et demeure libre et egaux en droit\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://34.147.14.131/apiBlog/article",
+					"protocol": "http",
+					"host": [
+						"34",
+						"147",
+						"14",
+						"131"
+					],
+					"path": [
+						"apiBlog",
+						"article"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteArticle",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2Nzk1MTI5MjUsImlzcyI6InNlcnZlci5hcnRpY2xlLmxvZ2luIiwibmJmIjoxNjc5NTEyOTI1LCJleHAiOjE2Nzk1MTQ3MjUsInJvbGUiOiJtb2RlcmF0b3IiLCJpZCI6MX0.hhXo7UW4EEGnRLNFFnuzHnfTvkJK1YO0sMn4P4b3hf3P_VL2tOWCjagJqYTvq1s4eDMhqNZUlIdZ8r1nKDo2MA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://34.147.14.131/apiBlog/article/12",
+					"protocol": "http",
+					"host": [
+						"34",
+						"147",
+						"14",
+						"131"
+					],
+					"path": [
+						"apiBlog",
+						"article",
+						"12"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateArticle",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2Nzk1MTI5MjUsImlzcyI6InNlcnZlci5hcnRpY2xlLmxvZ2luIiwibmJmIjoxNjc5NTEyOTI1LCJleHAiOjE2Nzk1MTQ3MjUsInJvbGUiOiJtb2RlcmF0b3IiLCJpZCI6MX0.hhXo7UW4EEGnRLNFFnuzHnfTvkJK1YO0sMn4P4b3hf3P_VL2tOWCjagJqYTvq1s4eDMhqNZUlIdZ8r1nKDo2MA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"body\" : \"Oui il a fauté mais c'est pour le bien de tout le monde 2 ans de plus sa ne tue pas\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://34.147.14.131/apiBlog/article/13",
+					"protocol": "http",
+					"host": [
+						"34",
+						"147",
+						"14",
+						"131"
+					],
+					"path": [
+						"apiBlog",
+						"article",
+						"13"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LikeArticle",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2Nzk1NTU1MzUsImlzcyI6InNlcnZlci5hcnRpY2xlLmxvZ2luIiwibmJmIjoxNjc5NTU1NTM1LCJleHAiOjE2Nzk1NTczMzUsInJvbGUiOiJtb2RlcmF0b3IiLCJpZCI6MX0.7TiWLaPAgT-2A5WhWmOLgdBSTyzBmI4MEdV4y9ohorSuUzYero6GukIkj76XJ87zS6YMB_vgpwg3hq2CZxGTNQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "http://34.147.14.131/apiBlog/article/like/2",
+					"protocol": "http",
+					"host": [
+						"34",
+						"147",
+						"14",
+						"131"
+					],
+					"path": [
+						"apiBlog",
+						"article",
+						"like",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DislikeArticle",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2Nzk1NTU1MzUsImlzcyI6InNlcnZlci5hcnRpY2xlLmxvZ2luIiwibmJmIjoxNjc5NTU1NTM1LCJleHAiOjE2Nzk1NTczMzUsInJvbGUiOiJtb2RlcmF0b3IiLCJpZCI6MX0.7TiWLaPAgT-2A5WhWmOLgdBSTyzBmI4MEdV4y9ohorSuUzYero6GukIkj76XJ87zS6YMB_vgpwg3hq2CZxGTNQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "http://34.147.14.131/apiBlog/article/dislike/2",
+					"protocol": "http",
+					"host": [
+						"34",
+						"147",
+						"14",
+						"131"
+					],
+					"path": [
+						"apiBlog",
+						"article",
+						"dislike",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
