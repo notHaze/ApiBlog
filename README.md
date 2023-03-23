@@ -24,9 +24,11 @@ url de base : http://34.147.14.131/apiBlog
 Toute les méthodes necessite de fournir un token JWT avec les requetes
 
 - Créer un article: POST /article
+    - Body : json {"body" : "..."}
 - Récupérer tous les articles: GET /article
 - Récupérer tous nos articles: GET /article/own
 - Modifier un article: PATCH /article/{id}
+    - Body : json {"body" : "..."}
 - Supprimer un article: DELETE /article/{id}
 - Liker un article: PATCH /article/like/{id}
 - Disliker un article: PATCH /article/dislike/{id}
