@@ -1,7 +1,7 @@
 # Projet API de Blog R4.01
 
-Ce projet est une API de blog qui permet de gérer les articles, les likes et plusieurs roles tels que publisher, moderator et des simples.
-Réalisé par Alfred Yael et Combet FLorent
+Ce projet est une API de blog qui permet de gérer les articles, les likes et plusieurs roles tels que publisher, moderator et des simples utilisateurs.
+Réalisé par Alfred Yael et Combet Florent
 
 ## Fonctionnalités
 
