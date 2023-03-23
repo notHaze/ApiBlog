@@ -7,7 +7,7 @@ use Domain\User\User;
 use Infrastructure\Database\Database;
 use PDO;
 
-class  ArticleRepositorylmpl implements ArticleRepositoryInterface {
+class  ArticleRepositoryImpl implements ArticleRepositoryInterface {
     private $db;
 
     public function __construct() {
@@ -16,14 +16,16 @@ class  ArticleRepositorylmpl implements ArticleRepositoryInterface {
     public function save(Article $article)
     {
         $contenu = $article->getBody();
+        $idArticle = $article->getId();
         if ($this->existArticle($article)) {
-            $SQL = "UPDATE Article set contenu = :contenu";
+            $SQL = "UPDATE article set contenu = :contenu where idArticle = :idArticle";
             $stmt = $this->db->prepare($SQL);
             $stmt->bindParam(':contenu', $contenu);
+            $stmt->bindParam(':idArticle', $idArticle);
         } else {
             $datePubli = $article->getPublicationDate();
             $idAuteur = $article->getWriter();
-            $SQL = "INSERT INTO Article (contenu, datePubli, idAuteur) VALUES (:contenu, :datePubli, :idAuteur)";
+            $SQL = "INSERT INTO article (contenu, datePubli, idAuteur) VALUES (:contenu, :datePubli, :idAuteur)";
             $stmt = $this->db->prepare($SQL);
             $stmt->bindParam(':contenu', $contenu);
             $stmt->bindParam(':datePubli', $datePubli);
@@ -38,7 +40,7 @@ class  ArticleRepositorylmpl implements ArticleRepositoryInterface {
 
     public function findOwn($id)
     {
-        $SQL = "SELECT idArticle, contenu, datePubli, username FROM  Article, User WHERE idAuteur = :idAuteur and idAuteur = idUser";
+        $SQL = "SELECT idArticle, contenu, datePubli, username FROM  article, user WHERE idAuteur = :idAuteur and idAuteur = idUser";
         $stmt = $this->db->prepare($SQL);
         $stmt->bindParam(':idAuteur', $id);
         $stmt->execute();
@@ -47,7 +49,7 @@ class  ArticleRepositorylmpl implements ArticleRepositoryInterface {
 
     public function findAll()
     {
-        $SQL = "SELECT idArticle, contenu, datePubli, username FROM Article, User WHERE idAuteur = idUser";
+        $SQL = "SELECT idArticle, contenu, datePubli, username, idUser FROM article, user WHERE idAuteur = idUser";
         $stmt = $this->db->prepare($SQL);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -56,7 +58,7 @@ class  ArticleRepositorylmpl implements ArticleRepositoryInterface {
     public function delete(Article $article)
     {
         $id = $article->getId();
-        $SQL = "DELETE FROM Article WHERE idArticle = :idArticle";
+        $SQL = "DELETE FROM article WHERE idArticle = :idArticle";
         $stmt = $this->db->prepare($SQL);
         $stmt->bindParam(':idArticle', $id);
         $stmt->execute();
@@ -82,7 +84,7 @@ class  ArticleRepositorylmpl implements ArticleRepositoryInterface {
     private function existArticle(Article $article)
     {
         $id = $article->getId();
-        $SQL = "SELECT count(*) FROM Article WHERE idArticle = :idArticle";
+        $SQL = "SELECT count(*) FROM article WHERE idArticle = :idArticle";
         $stmt = $this->db->prepare($SQL);
         $stmt->bindParam(':idArticle', $id);
         $stmt->execute();
@@ -105,7 +107,7 @@ class  ArticleRepositorylmpl implements ArticleRepositoryInterface {
             $stmt->bindParam(':liker', $like);
             $stmt->execute();
         } else {
-            $SQL = "INSERT INTO Liker (idArticle, idUser, liker) VALUES (:idArticle, :idUser, :liker)";
+            $SQL = "INSERT INTO liker (idArticle, idUser, liker) VALUES (:idArticle, :idUser, :liker)";
             $stmt = $this->db->prepare($SQL);
             $stmt->bindParam(':idArticle', $idArticle);
             $stmt->bindParam(':idUser', $idUser);
@@ -140,7 +142,7 @@ class  ArticleRepositorylmpl implements ArticleRepositoryInterface {
 
     public function getOne($id)
     {
-        $SQL = "SELECT * FROM Article WHERE idArticle = :idArticle";
+        $SQL = "SELECT * FROM article WHERE idArticle = :idArticle";
         $stmt = $this->db->prepare($SQL);
         $stmt->bindParam(':idArticle', $id);
         $stmt->execute();
@@ -149,7 +151,7 @@ class  ArticleRepositorylmpl implements ArticleRepositoryInterface {
 
     public function getPeopleLike($id)
     {
-        $SQL = "SELECT username FROM liker, User WHERE idArticle = :idArticle and liker = 1 and liker.idUser = User.idUser";
+        $SQL = "SELECT username FROM liker, user WHERE idArticle = :idArticle and liker = 1 and liker.idUser = user.idUser";
         $stmt = $this->db->prepare($SQL);
         $stmt->bindParam(':idArticle', $id);
         $stmt->execute();
@@ -158,7 +160,7 @@ class  ArticleRepositorylmpl implements ArticleRepositoryInterface {
 
     public function getPeopleDislike($id)
     {
-        $SQL = "SELECT username FROM liker, User WHERE idArticle = :idArticle and liker = '-1' and liker.idUser = User.idUser";
+        $SQL = "SELECT username FROM liker, user WHERE idArticle = :idArticle and liker = '-1' and liker.idUser = user.idUser";
         $stmt = $this->db->prepare($SQL);
         $stmt->bindParam(':idArticle', $id);
         $stmt->execute();

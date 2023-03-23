@@ -16,7 +16,7 @@ use Application\Middleware\VerifyRoleMiddleware;
 use Application\Query\User\GetRoleQueryHandler;
 use Application\Query\User\GetTokenQueryHandler;
 use Application\Query\User\getUsernameHandler;
-use Domain\Repository\ArticleRepositorylmpl;
+use Domain\Repository\ArticleRepositoryImpl;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -30,7 +30,7 @@ $app = AppFactory::create();
 $app->setBasePath("/api/ApiBlog");
 
 $loginRepository = new LoginRepositoryImpl();
-$articleRepository = new ArticleRepositorylmpl();
+$articleRepository = new ArticleRepositoryImpl();
 
 // Register the command and query handlers
 
@@ -73,7 +73,15 @@ $app->group('/article', function ($app) {
     $app->get('', [ArticleController::class, 'getAll']);                                                                    //Get all articles for moderator and publisher and reader
 })->addMiddleware(new ValidateTokenMiddleware($app->getResponseFactory()));//Verification of the validity of the token
 
-$app->addErrorMiddleware(true, true, true);
+$errorMiddleware = $app->addErrorMiddleware(true, true, true);
+
+// Set the Not Found Handler
+$errorMiddleware->setErrorHandler(\Slim\Exception\HttpNotFoundException::class,
+    function (\Psr\Http\Message\ServerRequestInterface $request, \Throwable $exception, bool $displayErrorDetails) {
+        $response = new \Slim\Psr7\Response();
+        $response->getBody()->write(json_encode(array("status" => "failure", "error" => "404 method not implemented")));
+        return $response->withStatus(404)->withAddedHeader("Content-Type", "application/json");
+    });
 
 try {
     $app->run();     

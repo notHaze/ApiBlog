@@ -2,6 +2,8 @@
 
 namespace Controllers;
 
+require __DIR__ . '/../../vendor/autoload.php';
+
 use Application\Query\Article\getOneQuery;
 use Application\Query\Article\getOwnQuery;
 use Infrastructure\SynchronousQueryBus;
@@ -48,11 +50,14 @@ class ArticleController
                 $articleFormate[$i] += array(
                     "nbLike" => SynchronousQueryBus::ask(new CountNbOfLikeQuery($art))[0]['nbLike'],
                     "nbDislike" => SynchronousQueryBus::ask(new CountNbOfDislikeQuery($art))[0]['nbDislike'],
-                    "url" => array(
-                        "liker" => $prefixURL."like/".$article['idArticle'],
-                        "dislike" => $prefixURL."dislike/".$article['idArticle']
-                    )
                 );
+                //l'article n'est pas le sien, il peut liker ou disliker
+                if ($article['idUser'] != $request->getAttribute("idUser")) {
+                    $articleFormate[$i] += array( "action" => array(
+                        "liker" => array("url" => $prefixURL.$article['idArticle']."/like", "method" => "PATCH"),
+                        "disliker" => array("url" => $prefixURL.$article['idArticle']."/dislike", "method" => "PATCH")
+                    ));
+                }
             }
             if ($role == "moderator") {
                 $art = new Article($article['idArticle'], $article['datePubli'], $article['contenu'], $article['username']);
@@ -62,7 +67,21 @@ class ArticleController
                     "likeUsers" => SynchronousQueryBus::ask(new getPeopleLikeQuery($art->getId())),
                     "dislikeUsers" => SynchronousQueryBus::ask(new getPeopleDislikeQuery($art->getId())),
                 );
+                //Si c'est un moderateur il peut tout surppimer ou modifier
+                $articleFormate[$i] += array( "action" => array(
+                    "delete" => array("url" => $prefixURL.$article['idArticle'], "method" => "DELETE"),
+                    "update" => array("url" => $prefixURL.$article['idArticle'], "method" => "PATCH")
+                ));
+
+                //l'article n'est pas le sien, il peut liker ou disliker
+                if ($article['idUser'] != $request->getAttribute("idUser")) {
+                    $articleFormate[$i]["action"] += array(
+                        "liker" => array("url" => $prefixURL.$article['idArticle']."/like", "method" => "PATCH"),
+                        "disliker" => array("url" => $prefixURL.$article['idArticle']."/dislike", "method" => "PATCH")
+                    );
+                }
             }
+
             $i++;
         }
 
@@ -72,7 +91,7 @@ class ArticleController
 
     }
 
-    //Lorsque un publisher veut recuperer ses articles
+    //Lorsque un publisher ou un moderateur veut recuperer ses articles
     public function get($request, ResponseInterface $response, array $args)
     {
         //On récupère l'id de l'utilisateur
@@ -84,7 +103,7 @@ class ArticleController
 
         //Get url from request
         $prefixURL =    $request->getUri()->getScheme() . '://' .
-                        $request->getUri()->getHost()."/api/ApiBlog/article/";
+                        $request->getUri()->getHost()."/apiBlog/article/";
 
 
         $articleFormate = array();
@@ -98,8 +117,16 @@ class ArticleController
                 "auteur" => $article['username'],
                 "likes" => SynchronousQueryBus::ask(new CountNbOfLikeQuery($art))[0]['nbLike'],
                 "dislikes" => SynchronousQueryBus::ask(new CountNbOfDislikeQuery($art))[0]['nbDislike'],
-                "urlUpdate" => $prefixURL . $article['idArticle'],
-                "urlDelete" => $prefixURL . $article['idArticle']
+                "action" => array(
+                    "update" => array(
+                        "url" => $prefixURL.$article['idArticle'],
+                        "method" => "PATCH"
+                    ),
+                    "delete" => array(
+                        "url" => $prefixURL.$article['idArticle'],
+                        "method" => "DELETE"
+                    )
+                ),
             ));
             if ($role=="moderator") {
                 $articleFormate[$i] += array(
@@ -122,7 +149,7 @@ class ArticleController
         $input = $request->getBody()->getContents();
         $input = json_decode($input, true);
         if (!isset($input['body']) || empty($input['body'])) {
-            $response->getBody()->write(json_encode(array("status" => "failure", "message" => "Body not set")));
+            $response->getBody()->write(json_encode(array("status" => "failure", "message" => "body not set")));
             return $response->withStatus(400);
         }
         $body = $input['body'];
@@ -139,7 +166,7 @@ class ArticleController
         $idArticle = SynchronousQueryBus::ask(new PublishQuery($article));
 
         $prefixURL =    $request->getUri()->getScheme() . '://' .
-                        $request->getUri()->getHost()."/api/ApiBlog/article/";
+                        $request->getUri()->getHost()."/apiBlog/article/";
 
         $article->setId($idArticle);
 
@@ -150,8 +177,10 @@ class ArticleController
             "auteur" => SynchronousQueryBus::ask(new getUsernameQuery($article->getWriter()))['username'],
             "likes" => SynchronousQueryBus::ask(new CountNbOfLikeQuery($article))[0]['nbLike'],
             "dislikes" => SynchronousQueryBus::ask(new CountNbOfDislikeQuery($article))[0]['nbDislike'],
-            "urlUpdate" => $prefixURL . $article->getId(),
-            "urlDelete" => $prefixURL . $article->getId()
+            "action" => array(
+                "liker" => array("url" => $prefixURL.$article->getId(), "method" => "PATCH"),
+                "dislike" => array("url" => $prefixURL.$article->getId(), "method" => "PATCH")
+            )
         );
         if ($role=="moderator") {
             $articleFormate += array(
@@ -211,8 +240,10 @@ class ArticleController
             "auteur" => SynchronousQueryBus::ask(new getUsernameQuery($article->getWriter()))['username'],
             "likes" => SynchronousQueryBus::ask(new CountNbOfLikeQuery($article))[0]['nbLike'],
             "dislikes" => SynchronousQueryBus::ask(new CountNbOfDislikeQuery($article))[0]['nbDislike'],
-            "urlUpdate" => $prefixURL . $article->getId(),
-            "urlDelete" => $prefixURL . $article->getId()
+            "action" => array(
+                "liker" => array("url" => $prefixURL.$article->getId(), "method" => "PATCH"),
+                "dislike" => array("url" => $prefixURL.$article->getId(), "method" => "PATCH")
+            )
         );
         if ($role=="moderator") {
             $articleFormate += array(
