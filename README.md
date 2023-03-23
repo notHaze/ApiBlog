@@ -17,7 +17,7 @@ url de base : http://34.147.14.131/apiBlog
 
 ### Authentification
 - Se connecter et recevoir un token JWT : POST /login
--- Body : json {"username" : "...", "password" : "..."}
+    - Body : json {"username" : "...", "password" : "..."}
 
 ### Articles
 
