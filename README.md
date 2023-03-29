@@ -3,6 +3,8 @@
 Ce projet est une API de blog qui permet de gérer les articles, les likes et plusieurs roles tels que publisher, moderator et des simples utilisateurs.
 Réalisé par Alfred Yael et Combet Florent
 
+Importez la base de donnée mysql avec le fichier Blog.sql, il créera automatiquement la base de donnée 'blog' ou l'overridera si elle existe deja.
+
 ## Fonctionnalités
 
 - Gestion des articles
