@@ -1,0 +1,289 @@
+{
+	"info": {
+		"_postman_id": "ed8bba30-9618-4fd7-82e7-930850038dd9",
+		"name": "publisher",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"Yael\",\r\n    \"password\": \"Yael\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://34.147.14.131/apiBlog/login",
+					"protocol": "http",
+					"host": [
+						"34",
+						"147",
+						"14",
+						"131"
+					],
+					"path": [
+						"apiBlog",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAll",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2Nzk1MTI4NTcsImlzcyI6InNlcnZlci5hcnRpY2xlLmxvZ2luIiwibmJmIjoxNjc5NTEyODU3LCJleHAiOjE2Nzk1MTQ2NTcsInJvbGUiOiJwdWJsaXNoZXIiLCJpZCI6Mn0.whhKwEU-ol4Q2nYuYrc5wu8SkmBCNcdqeIaDR-bmn0LTU9MxpZY8a_rVQ0gxN8qLA6qtanI4jJ3LIeSfMOjEUw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://34.147.14.131/apiBlog/article",
+					"protocol": "http",
+					"host": [
+						"34",
+						"147",
+						"14",
+						"131"
+					],
+					"path": [
+						"apiBlog",
+						"article"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getOwn",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2Nzk1MTI4NTcsImlzcyI6InNlcnZlci5hcnRpY2xlLmxvZ2luIiwibmJmIjoxNjc5NTEyODU3LCJleHAiOjE2Nzk1MTQ2NTcsInJvbGUiOiJwdWJsaXNoZXIiLCJpZCI6Mn0.whhKwEU-ol4Q2nYuYrc5wu8SkmBCNcdqeIaDR-bmn0LTU9MxpZY8a_rVQ0gxN8qLA6qtanI4jJ3LIeSfMOjEUw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://34.147.14.131/apiBlog/article/own",
+					"protocol": "http",
+					"host": [
+						"34",
+						"147",
+						"14",
+						"131"
+					],
+					"path": [
+						"apiBlog",
+						"article",
+						"own"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateArticle",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2Nzk0OTM1MTgsImlzcyI6InNlcnZlci5hcnRpY2xlLmxvZ2luIiwibmJmIjoxNjc5NDkzNTE4LCJleHAiOjE2Nzk0OTUzMTgsInJvbGUiOiJwdWJsaXNoZXIiLCJpZCI6Mn0.DcLQATZWREfVf04XQ9Ld6rnM7_Yp4Bz31ak3_jqvm6CRSc9QWUAbZUVzGN71yQ5X_ooxUdIXJ2HRgofPRP36dw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"body\":\"Les fleurs du mal de Charles Baudelaire Banger\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://34.147.14.131/apiBlog/article",
+					"protocol": "http",
+					"host": [
+						"34",
+						"147",
+						"14",
+						"131"
+					],
+					"path": [
+						"apiBlog",
+						"article"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteArticle",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2Nzk0OTM1MTgsImlzcyI6InNlcnZlci5hcnRpY2xlLmxvZ2luIiwibmJmIjoxNjc5NDkzNTE4LCJleHAiOjE2Nzk0OTUzMTgsInJvbGUiOiJwdWJsaXNoZXIiLCJpZCI6Mn0.DcLQATZWREfVf04XQ9Ld6rnM7_Yp4Bz31ak3_jqvm6CRSc9QWUAbZUVzGN71yQ5X_ooxUdIXJ2HRgofPRP36dw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://34.147.14.131/apiBlog/article/10",
+					"protocol": "http",
+					"host": [
+						"34",
+						"147",
+						"14",
+						"131"
+					],
+					"path": [
+						"apiBlog",
+						"article",
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateArticle",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2Nzk0OTM1MTgsImlzcyI6InNlcnZlci5hcnRpY2xlLmxvZ2luIiwibmJmIjoxNjc5NDkzNTE4LCJleHAiOjE2Nzk0OTUzMTgsInJvbGUiOiJwdWJsaXNoZXIiLCJpZCI6Mn0.DcLQATZWREfVf04XQ9Ld6rnM7_Yp4Bz31ak3_jqvm6CRSc9QWUAbZUVzGN71yQ5X_ooxUdIXJ2HRgofPRP36dw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"body\":\"C pas mal les fleurs du mal\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://34.147.14.131/apiBlog/article/11",
+					"protocol": "http",
+					"host": [
+						"34",
+						"147",
+						"14",
+						"131"
+					],
+					"path": [
+						"apiBlog",
+						"article",
+						"11"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LikeArticle",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2Nzk1MTM3NjksImlzcyI6InNlcnZlci5hcnRpY2xlLmxvZ2luIiwibmJmIjoxNjc5NTEzNzY5LCJleHAiOjE2Nzk1MTU1NjksInJvbGUiOiJwdWJsaXNoZXIiLCJpZCI6Mn0.Ynl0TNKZ3ztr-7C11rcpYLM-J1sSdmPZ_Uur3wD-a7GUWHdZIvwDxU0s6GDfl-JXH1jY_Ve63KMS5uyw61Co1A",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "http://34.147.14.131/apiBlog/article/like/13",
+					"protocol": "http",
+					"host": [
+						"34",
+						"147",
+						"14",
+						"131"
+					],
+					"path": [
+						"apiBlog",
+						"article",
+						"like",
+						"13"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DislikeArticle",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2Nzk1NTUxNTYsImlzcyI6InNlcnZlci5hcnRpY2xlLmxvZ2luIiwibmJmIjoxNjc5NTU1MTU2LCJleHAiOjE2Nzk1NTY5NTYsInJvbGUiOiJwdWJsaXNoZXIiLCJpZCI6Mn0.AJuscVyqJAgl4nmavXwxD3x-XrWjMRHp9RWtpaVks-ZJAJZj30UXTBcddF2Pw647gqt1JBW1iVRZUesn7pXpxw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "http://34.147.14.131/apiBlog/article/dislike/13",
+					"protocol": "http",
+					"host": [
+						"34",
+						"147",
+						"14",
+						"131"
+					],
+					"path": [
+						"apiBlog",
+						"article",
+						"dislike",
+						"13"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
