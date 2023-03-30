@@ -9,6 +9,7 @@ use Domain\tokenJWT\Exception\TokenNotFoundException;
 use Infrastructure\SynchronousCommandBus;
 use Infrastructure\SynchronousQueryBus;
 use Domain\tokenJWT\Exception\TokenNotValidException;
+use Firebase\JWT\ExpiredException;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -43,6 +44,10 @@ class ValidateTokenMiddleware implements MiddlewareInterface
             $response->getBody()->write(json_encode(["status" => "failed", "message" => $e->getMessage()]));
             return $response->withAddedHeader("Content-Type", "application/json")->withStatus(401);
         } catch (TokenNotValidException $e) {
+            $response = $this->responseFactory->createResponse();
+            $response->getBody()->write(json_encode(["status" => "failed", "message" => $e->getMessage()]));
+            return $response->withAddedHeader("Content-Type", "application/json")->withStatus(401);
+        } catch (ExpiredException $e) {
             $response = $this->responseFactory->createResponse();
             $response->getBody()->write(json_encode(["status" => "failed", "message" => $e->getMessage()]));
             return $response->withAddedHeader("Content-Type", "application/json")->withStatus(401);

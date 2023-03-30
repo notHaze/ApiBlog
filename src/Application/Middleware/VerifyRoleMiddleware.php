@@ -45,7 +45,7 @@ class VerifyRoleMiddleware
         if (in_array($roleUser, $this->roleExpected) == false) {
             $response = $this->responseFactory->createResponse();
             $response->getBody()->write(json_encode(["status" => "failed", "message" => "Invalid permission, you cant do this action with the " . $roleUser . " role"]));
-            return $response->withAddedHeader("Content-Type", "application/json")->withStatus(401);
+            return $response->withAddedHeader("Content-Type", "application/json")->withStatus(403);
         }
         
         // Keep processing middleware queue as normal

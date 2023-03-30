@@ -20,6 +20,7 @@ use Application\Query\Article\CountNbOfLikeQuery;
 use Application\Query\Article\getPeopleDislikeQuery;
 use Application\Query\Article\getPeopleLikeQuery;
 use Application\Query\User\getUsernameQuery;
+use Application\Command\Article\CommandNeutre;
 
 class ArticleController
 {
@@ -31,7 +32,7 @@ class ArticleController
 
        if ($role != null) {
         $prefixURL =    $request->getUri()->getScheme() . '://' .
-                        $request->getUri()->getHost()."/api/ApiBlog/article/";
+                        $request->getUri()->getHost()."/apiBlog/article/";
        }
 
        $articleFormate = array();
@@ -54,10 +55,18 @@ class ArticleController
                 //l'article n'est pas le sien, il peut liker ou disliker
                 if ($article['idUser'] != $request->getAttribute("idUser")) {
                     $articleFormate[$i] += array( "action" => array(
-                        "liker" => array("url" => $prefixURL.$article['idArticle']."/like", "method" => "PATCH"),
-                        "disliker" => array("url" => $prefixURL.$article['idArticle']."/dislike", "method" => "PATCH")
+                        "liker" => array("url" => $prefixURL."like/".$article['idArticle'], "method" => "PATCH"),
+                        "disliker" => array("url" => $prefixURL."dislike/".$article['idArticle'], "method" => "PATCH"),
+                        "neutre" => array("url" => $prefixURL."neutre/".$article['idArticle'], "method" => "PATCH")
+                    ));
+                } else { //Si c'est un publisher il peut supprimer ou modifier son article
+                    $articleFormate[$i] += array( "action" => array(
+                        "delete" => array("url" => $prefixURL.$article['idArticle'], "method" => "DELETE"),
+                        "update" => array("url" => $prefixURL.$article['idArticle'], "method" => "PATCH")
                     ));
                 }
+                
+
             }
             if ($role == "moderator") {
                 $art = new Article($article['idArticle'], $article['datePubli'], $article['contenu'], $article['username']);
@@ -76,8 +85,9 @@ class ArticleController
                 //l'article n'est pas le sien, il peut liker ou disliker
                 if ($article['idUser'] != $request->getAttribute("idUser")) {
                     $articleFormate[$i]["action"] += array(
-                        "liker" => array("url" => $prefixURL.$article['idArticle']."/like", "method" => "PATCH"),
-                        "disliker" => array("url" => $prefixURL.$article['idArticle']."/dislike", "method" => "PATCH")
+                        "liker" => array("url" => $prefixURL."like/".$article['idArticle'], "method" => "PATCH"),
+                        "disliker" => array("url" => $prefixURL."dislike/".$article['idArticle'], "method" => "PATCH"),
+                        "neutre" => array("url" => $prefixURL."neutre/".$article['idArticle'], "method" => "PATCH")
                     );
                 }
             }
@@ -178,8 +188,9 @@ class ArticleController
             "likes" => SynchronousQueryBus::ask(new CountNbOfLikeQuery($article))[0]['nbLike'],
             "dislikes" => SynchronousQueryBus::ask(new CountNbOfDislikeQuery($article))[0]['nbDislike'],
             "action" => array(
-                "liker" => array("url" => $prefixURL.$article->getId(), "method" => "PATCH"),
-                "dislike" => array("url" => $prefixURL.$article->getId(), "method" => "PATCH")
+                "liker" => array("url" => $prefixURL."like/".$article->getId(), "method" => "PATCH"),
+                "dislike" => array("url" => $prefixURL."dislike/".$article->getId(), "method" => "PATCH"),
+                "neutre" => array("url" => $prefixURL."neutre/".$article['idArticle'], "method" => "PATCH")
             )
         );
         if ($role=="moderator") {
@@ -212,7 +223,6 @@ class ArticleController
         $id = $request->getAttribute("idUser");
         $role = $request->getAttribute("role");
 
-        //On récupère la date de publication
         $articleExistant = SynchronousQueryBus::ask(new getOneQuery($idArticle));
         //Si l'article est vide
         if (empty($articleExistant)) {
@@ -241,8 +251,8 @@ class ArticleController
             "likes" => SynchronousQueryBus::ask(new CountNbOfLikeQuery($article))[0]['nbLike'],
             "dislikes" => SynchronousQueryBus::ask(new CountNbOfDislikeQuery($article))[0]['nbDislike'],
             "action" => array(
-                "liker" => array("url" => $prefixURL.$article->getId(), "method" => "PATCH"),
-                "dislike" => array("url" => $prefixURL.$article->getId(), "method" => "PATCH")
+                "liker" => array("url" => $prefixURL."like/".$article->getId(), "method" => "PATCH"),
+                "dislike" => array("url" => $prefixURL."dislike/".$article->getId(), "method" => "PATCH")
             )
         );
         if ($role=="moderator") {
@@ -345,5 +355,33 @@ class ArticleController
          $response->getBody()->write($jsonOutput);
  
          return $response->withAddedHeader("Content-Type", "application/json")->withStatus(200);
+    }
+
+    public function neutre($request, ResponseInterface $response, array $args) {
+        //On récupère l'id de l article à modifier 
+        $idArticle = $args['id'];
+
+        //On récupère l'id de l'utilisateur
+        $id = $request->getAttribute("idUser");
+
+        //On récupère l'article
+        $articleExistant = SynchronousQueryBus::ask(new getOneQuery($idArticle));
+        //Si l'article est vide
+       if (empty($articleExistant)) {
+           $response->getBody()->write(json_encode(array("status" => "failure", "message" => "Article not found")));
+           return $response->withStatus(404)->withAddedHeader("Content-Type", "application/json");
+       }
+       if ($articleExistant[0]['idAuteur'] == $id) {
+           $response->getBody()->write(json_encode(array("status" => "failure", "message" => "You can't dislike your own article")));
+           return $response->withStatus(403)->withAddedHeader("Content-Type", "application/json");
+       }
+
+        //On redeviens neutre vis a vis de l'article
+        SynchronousCommandBus::execute(new CommandNeutre($id, $idArticle));
+
+        $jsonOutput = json_encode(array("status" => "success"));
+        $response->getBody()->write($jsonOutput);
+
+        return $response->withAddedHeader("Content-Type", "application/json")->withStatus(200);
     }
 }

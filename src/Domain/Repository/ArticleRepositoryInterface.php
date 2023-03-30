@@ -28,6 +28,8 @@ interface ArticleRepositoryInterface {
 
     public function getPeopleDislike($id);
 
+    public function neutre($idArticle, $idUser);
+
 
 
 }

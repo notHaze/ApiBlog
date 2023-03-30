@@ -167,4 +167,13 @@ class  ArticleRepositoryImpl implements ArticleRepositoryInterface {
         
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function neutre($idArticle, $idUser)
+    {
+        $SQL = "DELETE FROM liker WHERE idArticle = :idArticle and idUser = :idUser";
+        $stmt = $this->db->prepare($SQL);
+        $stmt->bindParam(':idArticle', $idArticle);
+        $stmt->bindParam(':idUser', $idUser);
+        $stmt->execute();
+    }
 }

@@ -27,7 +27,7 @@ $app = AppFactory::create();
 
 
 
-$app->setBasePath("/api/ApiBlog");
+$app->setBasePath("/apiBlog");
 
 $loginRepository = new LoginRepositoryImpl();
 $articleRepository = new ArticleRepositoryImpl();
@@ -48,6 +48,7 @@ SynchronousCommandBus::register(\Application\Command\Article\CommandDelete::clas
 SynchronousCommandBus::register(\Application\Command\Article\CommandLike::class, new \Application\Command\Article\CommandLikeHandler($articleRepository));
 SynchronousCommandBus::register(\Application\Command\Article\CommandDislike::class, new \Application\Command\Article\CommandDislikeHandler($articleRepository));
 SynchronousCommandBus::register(\Application\Command\Article\CommandModify::class, new \Application\Command\Article\CommandModifyHandler($articleRepository));
+SynchronousCommandBus::register(\Application\Command\Article\CommandNeutre::class, new \Application\Command\Article\CommandNeutreHandler($articleRepository));
 
 SynchronousQueryBus::register(\Application\Query\Article\ConsultQuery::class, new \Application\Query\Article\ConsultQueryHandler($articleRepository));
 SynchronousQueryBus::register(\Application\Query\Article\CountNbOfDislikeQuery::class, new \Application\Query\Article\CountNbOfDislikeQueryHandler($articleRepository));
@@ -70,6 +71,7 @@ $app->group('/article', function ($app) {
     $app->delete('/{id}', [ArticleController::class, 'delete'])->add(new VerifyRoleMiddleware($app->getResponseFactory())); //Supprimer un article
     $app->patch('/like/{id}', [ArticleController::class, 'like'])->add(new VerifyRoleMiddleware($app->getResponseFactory())); //Liker un article
     $app->patch('/dislike/{id}', [ArticleController::class, 'dislike'])->add(new VerifyRoleMiddleware($app->getResponseFactory())); //Disliker un article
+    $app->patch('/neutre/{id}', [ArticleController::class, 'neutre'])->add(new VerifyRoleMiddleware($app->getResponseFactory())); //Neutre un article
     $app->get('', [ArticleController::class, 'getAll']);                                                                    //Get all articles for moderator and publisher and reader
 })->addMiddleware(new ValidateTokenMiddleware($app->getResponseFactory()));//Verification of the validity of the token
 
