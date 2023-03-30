@@ -284,6 +284,40 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Neutre",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2Nzk0OTI3NzksImlzcyI6InNlcnZlci5hcnRpY2xlLmxvZ2luIiwibmJmIjoxNjc5NDkyNzc5LCJleHAiOjE2Nzk0OTQ1NzksInJvbGUiOm51bGwsImlkIjozfQ.jkdx9BvtXwSnM4nWCaEqGoJ992RoINY12NoxZEMwQM1o9Ugbdlm-5Jxn0NjqbumWqK7l0PutCykGc0zJFeuBDg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "http://34.147.14.131/apiBlog/article/neutre/1",
+					"protocol": "http",
+					"host": [
+						"34",
+						"147",
+						"14",
+						"131"
+					],
+					"path": [
+						"apiBlog",
+						"article",
+						"neutre",
+						"2"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
